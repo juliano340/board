@@ -1,5 +1,6 @@
 
-import styles from './styles/styles.module.scss';
+import Link from 'next/link';
+import styles from './../styles/styles.module.scss';
 import Head from "../../node_modules/next/head";
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       </Head>
 
       <div>
-        <h1>Primeiro projeto com NextJS</h1>
+        <h1 className={styles.title}>Primeiro projeto com <span>NextJS</span></h1>
       </div>
 
     </>

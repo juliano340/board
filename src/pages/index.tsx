@@ -9,9 +9,25 @@ export default function Home() {
         <title>Board - Organizandor de Tarefas </title>
       </Head>
 
-      <div>
-        <h1 className={styles.title}>Primeiro projeto com <span>NextJS</span></h1>
-      </div>
+      <main className={styles.contentContainer}>
+
+        <img src="/images/board-user.svg" alt="Ferramenta Board" />
+
+        <section className={styles.callToAction}>
+
+          <h1>Uma ferramenta para o seu dia: Escreva, planeje e organize-se</h1>
+          <p>
+            <span>100% Gratuita</span> e online!
+          </p>
+
+          <div className={styles.donaters}>
+            <img src="https://bit.ly/3Px1qPY" alt="Usuario 1" />
+           
+          </div>
+
+        </section>
+
+      </main>
 
     </>
   )

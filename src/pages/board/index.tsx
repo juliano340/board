@@ -10,7 +10,8 @@ import { FiCalendar } from "react-icons/fi";
 import { SupportButton } from '../../components/SupportButton';
 import { redirect } from 'next/dist/server/api-utils';
 import firebase from '../../services/firebaseConnection';
-import { format } from 'date-fns';
+import { format, formatDistance } from 'date-fns';
+import {ptBR} from 'date-fns/locale';
 
 type TaskList = {
     id: string;
@@ -25,6 +26,9 @@ interface BoardProps {
     user: {
         id: string;
         nome: string;
+        vip: boolean;
+        lastDonate: string | Date;
+
     }
 
     data: string;
@@ -169,10 +173,12 @@ export default function Board({user, data}: BoardProps) {
                                     <time>{task.createdFormated}</time>
                                     
                                 </div>
-                                <button onClick={ () => handleEditTask(task) }>
+                                {user.vip && (
+                                    <button onClick={ () => handleEditTask(task) }>
                                     <FiEdit2 size={20} color="#FFF"/>
                                     <span>Editar</span>
                                 </button>
+                                )}
                             </div>
 
                     
@@ -189,13 +195,16 @@ export default function Board({user, data}: BoardProps) {
             </section>
         </main>
 
-        <div className={styles.vipContainer}>
+        {user.vip && (
+            <div className={styles.vipContainer}>
             <h3>Obrigado por apoiar este projeto</h3>
             <div>
                 <FiClock size={28} color="#FFF"/>
-                <time>Última doação realizada a 3 dias.</time>
+                <time>Última doação foi a {formatDistance(new Date(user.lastDonate), new Date(), {locale: ptBR})} </time>
             </div>
         </div>
+        )}
+
         <SupportButton />
         </>
     )
@@ -231,7 +240,9 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
    const user = {
     nome: session?.user.name,
-    id: session?.id
+    id: session?.id,
+    vip: session?.vip,
+    lastDonate: session?.lastDonate
    }
 
     return{

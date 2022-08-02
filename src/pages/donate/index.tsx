@@ -1,10 +1,14 @@
+import { GetServerSideProps } from 'next';
 import styles from './styles.module.scss';
 import Head from 'next/head';
-import { GetServerSideProps } from "next";
+
 import { getSession } from 'next-auth/client';
 import {PayPalButtons} from '@paypal/react-paypal-js'
 import firebase from '../../services/firebaseConnection';
 import {useState} from 'react';
+import Image from 'next/image';
+import rocket from '../../../public/images/rocket.svg'
+
 
 // Cliente ID  Afh0fLor_H_OAJ3AUX26Ph9s8XGaO_ddeq9BjaaRIO41-N5Vc2iwtJu29AoHAYlqcm2QbBF4LfPsTWbM
 //SDK <script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"></script>
@@ -46,12 +50,12 @@ export default function Donate({ user } : DonateProps) {
             </Head>
             <main className={styles.container}>
 
-                <img src="/images/rocket.svg" alt="Seja Apoiador" />
+                <Image src={rocket} alt="Seja Apoiador" />
 
                 {vip && (
                     <div className={styles.vip}>
 
-                    <img src={user.image} alt="" />
+                    <Image width={50} height={50} src={user.image} alt="" />
                     <span>Parabéns! Você é um novo apoiador!</span>
                     </div>
                 )}
@@ -83,18 +87,19 @@ export default function Donate({ user } : DonateProps) {
 }
 
 
-export const  getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
    
-    const session = await getSession({req}) 
+    const session = await getSession({req});
+    
 
     if(!session?.id) {
-        return {
+        return{ 
+            
             redirect:{
                 destination: '/',
-                parmanent: false
+                permanent: false
             }
         }
-
     }
 
     const user = {

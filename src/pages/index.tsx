@@ -4,6 +4,9 @@ import styles from './../styles/styles.module.scss';
 import Head from "../../node_modules/next/head";
 import { GetStaticProps } from 'next';
 import { useState } from "react";
+import Image from "next/image";
+import boardUser from '../../public/images/board-user.svg';
+
 
 interface HomeProps {
   data: string;
@@ -29,7 +32,7 @@ export default function Home( {data} : HomeProps ) {
 
       <main className={styles.contentContainer}>
 
-        <img src="/images/board-user.svg" alt="Ferramenta Board" />
+        <Image src={boardUser} alt="Ferramenta Board" />
 
         <section className={styles.callToAction}>
 
@@ -41,7 +44,7 @@ export default function Home( {data} : HomeProps ) {
           {donaters.length !== 0 && <h3>Apoiadores:</h3>}
           <div className={styles.donaters}>
             {donaters.map(item => (
-              <img key={item.image} src={item.image} alt="Usuário perfil" />
+              <Image width={65} height={65} key={item.image} src={item.image} alt="Usuário perfil" />
             ))}
            
           </div>

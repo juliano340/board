@@ -1,23 +1,26 @@
-import firebase from "firebase";
-
+import firebase from 'firebase';
 import 'firebase/firestore';
 
-
-
+const apiKey=process.env.FB_API_KEY
+const authDomain=process.env.FB_AUTH_DOMAIN
+const projectId=process.env.FB_PROJECT_ID
+const storageBucket=process.env.FB_STORAGE_BUCKET
+const messagingSenderId=process.env.FB_MESSAGING_SENDER_ID
+const appId=process.env.FB_APP_ID
+const measurementId=process.env.FB_MEASUREMENT_ID
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAybntKbtqSwqG_48tS63kBspCAXpP8b3I",
-    authDomain: "boardapp-b4420.firebaseapp.com",
-    projectId: "boardapp-b4420",
-    storageBucket: "boardapp-b4420.appspot.com",
-    messagingSenderId: "407204554734",
-    appId: "1:407204554734:web:0bb257a578b6ec699a90ff",
-    measurementId: "G-D01NVDXCDD"
-  };
+  apiKey,
+  authDomain,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+  measurementId,
+};
   
-  // Initialize Firebase
-  if(!firebase.apps.length) {
-      const app = firebase.initializeApp(firebaseConfig);
-  }
+if(!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-  export default firebase;
+export default firebase;
